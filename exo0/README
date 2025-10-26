@@ -1,0 +1,2 @@
+docker build . name
+docker run name

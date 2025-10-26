@@ -1,0 +1,9 @@
+"
+docker build . -t image_name -> Construction de l'image
+docker run --detach -p 3030:3030 image_name -> Lancement du conteneur en détaché
+docker ps -> On vérifie l'existence du conteneur et on récupère son ID
+curl http://localhost:3030 -> On teste si l'on peut communiquer avec le serveur depuis l'extérieur du conteneur
+docker exec -it container_name sh -> On ouvre un shell dans notre conteneur
+curl http://localhost:3030 -> On teste si l'on peut communiquer avec le serveur depuis l'intérieur du conteneur
+docker stop container_name -> On arrête le conteneur
+"

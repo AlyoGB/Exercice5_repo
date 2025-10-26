@@ -1,0 +1,8 @@
+docker build . -t image_name
+docker run --detach -e POSTGRES_USER="john" -e POSTGRES_DB="doe" -e POSTGRES_PASSWORD="johndoe" image_name
+docker run --detach --env-file ./env/env.txt image_name
+docker ps
+docker exec -it container_name sh
+ls /var/lib/postgresql/data
+docker run --detach -e POSTGRES_USER="john" -e POSTGRES_DB="doe" -e POSTGRES_PASSWORD="johndoe" -v /c/Users/alyog/Documents:/var/lib/postgresql/data image_name
+docker run --detach -e POSTGRES_USER="john" -e POSTGRES_DB="doe" -e POSTGRES_PASSWORD="johndoe" -v volume1:/var/lib/postgresql/data image_name
