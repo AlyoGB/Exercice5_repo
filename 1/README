@@ -17,6 +17,7 @@ Avec Docker Compose :
 
 Dans le dossier racine ('1') :
 "docker compose build"
-"docker compose up"
-"docker run -v ${PWD}/image/opt:/opt un" (Windows)
-
+"docker compose up exercice_un"
+"docker compose down exercice_un"
+On change le chemin 'file' de 'msg' dans 'configs' du docker compose
+"docker compose up exercice_un"

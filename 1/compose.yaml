@@ -3,4 +3,11 @@ services:
     build: ./image
     image: un:latest
     container_name: un
-    
+    configs:
+      - source: msg
+        target: /opt/msg.txt
+
+configs:
+  msg:
+    file: ./image/msg.txt
+    # file: ./image/opt/msg.txt
