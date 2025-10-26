@@ -1,8 +1,31 @@
-docker build . -t image_name
-docker run --detach -e POSTGRES_USER="john" -e POSTGRES_DB="doe" -e POSTGRES_PASSWORD="johndoe" image_name
-docker run --detach --env-file ./env/env.txt image_name
-docker ps
-docker exec -it container_name sh
-ls /var/lib/postgresql/data
-docker run --detach -e POSTGRES_USER="john" -e POSTGRES_DB="doe" -e POSTGRES_PASSWORD="johndoe" -v /c/Users/alyog/Documents:/var/lib/postgresql/data image_name
-docker run --detach -e POSTGRES_USER="john" -e POSTGRES_DB="doe" -e POSTGRES_PASSWORD="johndoe" -v volume1:/var/lib/postgresql/data image_name
+Avec Docker File :
+Depuis la racine du projet ('3') :
+Lancer le script bash : 'launch_postgres_dockers_df.sh'
+
+
+Avec Docker Compose :
+
+Depuis la racine du projet ('3') :
+On crée le volume et on démarre le conteneur :
+"docker volume create postgres_data_vol"
+"docker compose up -d exercice_trois"
+
+On regarde ensuite si 'trois' existe :
+"docker ps"
+
+On entre alors dans notre conteneur :
+"docker exec -it trois psql -U john -d doe"
+
+Et l'on prépare une BDD de test :
+"CREATE TABLE test(exercice INT);"
+"INSERT INTO test VALUES(3);"
+
+On relance le conteneur :
+"docker compose down trois"
+"docker compose up -d exercice_trois"
+
+Enfin, on vérifie la persistence de la table :
+"docker exec -it trois psql -U john -d doe -c "\dt"
+
+
+

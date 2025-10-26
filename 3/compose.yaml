@@ -1,0 +1,19 @@
+services:
+  exercice_trois:
+    image: postgres:18
+    container_name: trois
+    env_file:
+      - .env
+    secrets:
+      - db_password
+    volumes:
+      - postgres_data_vol:/var/lib/postgresql
+    ports:
+      - "127.0.0.1:5432:5432"
+  
+volumes:
+  postgres_data_vol:
+
+secrets:
+  db_password:
+    file: db_password.txt
