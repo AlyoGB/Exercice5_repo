@@ -6,4 +6,26 @@ On démarre le conteneur Debian PSQL :
 On crée notre réseau Docker :
 "docker network create my-network"
 
+On crée l'image et on lance les différents services :
+"docker compose build"
+"docker compose up -d"
+
+On vérifie que les conteneurs existent :
+"docker ps"
+
+On prépare une BDD test depuis le conteneur 'client1' :
+"docker exec -it client1 bash"
+"psql -h database -U john -d doe"
+"CREATE TABLE test(exercice INT);"
+"INSERT INTO test VALUES(3);"
+
+On redémarre les conteneurs et l'on vérifie la persistance de la table :
+"docker compose down"
+"docker compose up -d"
+"docker exec -it client bash"
+'psql -h database -U john -d doe -c "\dt"'
+
+Note :
 On utilise la commande "tail -f /dev/null" qui est une commande ne se terminant pas pour garder actif le conteneur de debian PSQL.
+Pour le client 2, on ne peut pas passer par le namespace réseau (car sur un réseau différent) : on doit donc utiliser l'IP de 'database'
+que l'on peut récupérer grâce à une commande ("docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' database").

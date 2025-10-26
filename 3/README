@@ -24,8 +24,5 @@ On relance le conteneur :
 "docker compose down trois"
 "docker compose up -d exercice_trois"
 
-Enfin, on vérifie la persistence de la table :
-"docker exec -it trois psql -U john -d doe -c "\dt"
-
-
-
+Enfin, on vérifie la persistance de la table :
+'docker exec -it trois psql -U john -d doe -c "\dt"'

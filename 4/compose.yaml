@@ -1,37 +1,48 @@
-version: '3.8'
-
 services:
-  db:
+  database:
     image: postgres
+    container_name: database
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_PASSWORD_FILE: ${POSTGRES_PASSWORD_FILE}
-    secrets:
-      - db_password
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
     networks:
       - my-network
+    volumes:
+      - postgres_data_vol:/var/lib/postgresql
+    secrets:
+      - db_password
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
-      interval: 5s
+      interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 3
 
-  client:
+  client1:
     image: debian_psql
     build: ./debian_psql
-    depends_on:
-      db:
-        condition: service_healthy
+    container_name: client1
     environment:
       PGPASSWORD: ${PGPASSWORD}
       PGUSER: ${PGUSER}
       PGDATABASE: ${PGDATABASE}
-      PGHOST: db
+      PGHOST: database
     networks:
       - my-network
+    depends_on:
+      database:
+        condition: service_healthy
+    command: tail -f /dev/null
+
+  client2:
+    image: debian_psql
+    build: ./debian_psql
+    container_name: client2
+    environment:
+      PGPASSWORD: ${PGPASSWORD}
+      PGUSER: ${PGUSER}
+      PGDATABASE: ${PGDATABASE}
+      PGHOST: database
     command: tail -f /dev/null
 
 networks:
@@ -39,8 +50,8 @@ networks:
     driver: bridge
 
 volumes:
-  postgres_data:
+  postgres_data_vol:
 
 secrets:
   db_password:
-    file: ./db_password.txt
+    file: db_password.txt
