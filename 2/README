@@ -1,9 +1,42 @@
-"
-docker build . -t image_name -> Construction de l'image
-docker run --detach -p 3030:3030 image_name -> Lancement du conteneur en détaché
-docker ps -> On vérifie l'existence du conteneur et on récupère son ID
-curl http://localhost:3030 -> On teste si l'on peut communiquer avec le serveur depuis l'extérieur du conteneur
-docker exec -it container_name sh -> On ouvre un shell dans notre conteneur
-curl http://localhost:3030 -> On teste si l'on peut communiquer avec le serveur depuis l'intérieur du conteneur
-docker stop container_name -> On arrête le conteneur
-"
+Avec Docker File :
+
+Dans le dossier 'image' :
+"docker build . -t node"
+"docker run --detach -p 3030:3030 node"
+
+On vérifie que le conteneur existe :
+"docker ps <container_ID>"
+
+On teste de communiquer avec depuis l'extérieur :
+"curl http://localhost:3030"
+
+On entre dans notre conteneur :
+"docker exec -it <container_ID> sh"
+
+Et on tente de communiquer avec lui depuis l'intérieur :
+"curl http://localhost:3030"
+
+Enfin, on stoppe le conteneur :
+"docker stop <container_ID>"
+
+
+Avec Docker Compose :
+
+Dans le dossier racine ('2') :
+"docker compose build"
+"docker compose up -d"
+
+On vérifie que le conteneur existe :
+"docker ps deux"
+
+On teste de communiquer avec depuis l'extérieur :
+"curl http://localhost:3030"
+
+On entre dans notre conteneur :
+"docker exec -it deux sh"
+
+Et on tente de communiquer avec lui depuis l'intérieur :
+"wget -qO- http://localhost:3030"
+
+Enfin, on stoppe le conteneur :
+"docker stop deux"

@@ -1,0 +1,7 @@
+services:
+  exercice_deux:
+    build: ./image
+    image: deux:latest
+    container_name: deux
+    ports:
+      - "127.0.0.1:3030:3030"

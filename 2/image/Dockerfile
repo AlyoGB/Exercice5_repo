@@ -1,6 +1,6 @@
-FROM node:latest
+FROM dockette/nodejs
 WORKDIR /app
-COPY . .
+COPY package.json /app/
 RUN npm install
-EXPOSE 3030
+ADD src /app/src
 CMD ["npm", "start"]
