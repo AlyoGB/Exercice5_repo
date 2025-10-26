@@ -1,2 +1,9 @@
-docker network create my-network
-docker run -d --name postgres_container -p 5432:5432 -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=admin123 -e POSTGRES_DB=ma_base mon_postgres
+Avec Docker Compose :
+
+On démarre le conteneur Debian PSQL :
+"docker build -t debian_psql .\debian_psql\"
+
+On crée notre réseau Docker :
+"docker network create my-network"
+
+On utilise la commande "tail -f /dev/null" qui est une commande ne se terminant pas pour garder actif le conteneur de debian PSQL.

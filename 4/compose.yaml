@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD_FILE: ${POSTGRES_PASSWORD_FILE}
+    secrets:
+      - db_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - my-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  client:
+    image: debian_psql
+    build: ./debian_psql
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGPASSWORD: ${PGPASSWORD}
+      PGUSER: ${PGUSER}
+      PGDATABASE: ${PGDATABASE}
+      PGHOST: db
+    networks:
+      - my-network
+    command: tail -f /dev/null
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+
+secrets:
+  db_password:
+    file: ./db_password.txt
