@@ -1,0 +1,22 @@
+Avec Docker File :
+
+On crée un répertoire opt contenant un second msg.txt
+Puis on redirige le point de montage vers cet autre élément sans rebuild l'image
+
+On construit et lance une première fois l'image :
+Se placer dans le dossier 'image' :
+"docker build -t un ."
+"docker run un"
+
+Puis on redirige le point de montage :
+Toujours dans le dossier 'image' :
+"docker run -v ${PWD}/opt:/opt un" (Windows)
+
+
+Avec Docker Compose :
+
+Dans le dossier racine ('1') :
+"docker compose build"
+"docker compose up"
+"docker run -v ${PWD}/image/opt:/opt un" (Windows)
+

@@ -1,5 +1,0 @@
-On recrée un répertoire opt ou l'on crée un second msg2.txt
-Le but est de rediriger le point de montage vers un autre élément sans rebuild l'image
-
-Sur debian : docker run -v $(pwd)/opt:/opt toto
-Sur windows : docker run -v ${PWD}/opt:/opt toto

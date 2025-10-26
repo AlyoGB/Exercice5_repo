@@ -1,0 +1,6 @@
+services:
+  exercice_un:
+    build: ./image
+    image: un:latest
+    container_name: un
+    
